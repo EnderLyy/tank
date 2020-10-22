@@ -32,6 +32,7 @@ public class Bullet {
     public void paint(Graphics g) {
         if (!living) {
             this.tf.bullets.remove(this);
+            return;
         }
         switch (dir) {
             case LEFT:
@@ -88,6 +89,10 @@ public class Bullet {
         if (rect.intersects(tank.getRect())) {
             this.die();
             tank.die();
+            //爆炸在坦克中心位置
+            int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+            int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            tf.explodes.add(new Explode(eX, eY, this.tf));
         }
     }
 
